@@ -18,18 +18,17 @@ namespace PRSPretestLibrary.Migrations
                     DeliveryMode = table.Column<string>(maxLength: 20, nullable: false, defaultValue: "True"),
                     Status = table.Column<string>(maxLength: 10, nullable: false),
                     Total = table.Column<decimal>(type: "decimal(11,2)", nullable: false),
-                    UserId = table.Column<bool>(nullable: false),
-                    UserId1 = table.Column<int>(nullable: true)
+                    UserId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Requests", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Requests_Users_UserId1",
-                        column: x => x.UserId1,
+                        name: "FK_Requests_Users_UserId",
+                        column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -70,9 +69,9 @@ namespace PRSPretestLibrary.Migrations
                 column: "RequestId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Requests_UserId1",
+                name: "IX_Requests_UserId",
                 table: "Requests",
-                column: "UserId1");
+                column: "UserId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

@@ -7,6 +7,8 @@
   <ItemGroup>
     <Compile Remove="Migrations\20200226002149_Add request and requestlines.cs" />
     <Compile Remove="Migrations\20200226002149_Add request and requestlines.Designer.cs" />
+    <Compile Remove="Migrations\20200226185703_Add request and request lines.cs" />
+    <Compile Remove="Migrations\20200226185703_Add request and request lines.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

@@ -6,49 +6,49 @@ using System.Linq;
 using System.Text;
 
 namespace PRSPretestLibrary.Controller {
-    public class VendorController {
+    public class ProductController {
 
         private AppDbContext context = new AppDbContext();
 
-        public List<Vendor> GetAllVendors() {
-            var vendors = context.Vendors.ToList();//this uses linq to read data
-            foreach (var u in vendors) {
+        public List<Product> GetAllProducts() {
+            var products = context.Products.ToList();//this uses linq to read data
+            foreach (var u in products) {
                 Console.WriteLine(u);//overidden the to string function in both class
             }
-            return (vendors);
+            return (products);
         }
-        public  Vendor GetVendorbyPK(int id) {
+        public Product GetProductbyPK(int id) {
             if (id < 1) throw new Exception("Id must be greater than zero");
-            return context.Vendors.Find(id);
+            return context.Products.Find(id);
         }
-
-        public Vendor Insert( Vendor vendor) {
-            //if vendor is null will give an error if try to check
-            if (vendor == null) throw new Exception("vendor cannot be null");
-            if (vendor.Code.Length > 30 || vendor.Name.Length > 30)
-            context.Vendors.Add(vendor);
+        public Product Insert(Product product) {
+            
+            if (product == null) throw new Exception("product cannot be null");
+            
+            context.Products.Add(product);
             try {
                 context.SaveChanges();//trap exception for a dup code by doing a try catch
             } catch (DbUpdateException ex) {
                 //if get it what will we do
-                throw new Exception("code must be unique", ex);
+                throw new Exception("Product incomplete", ex);
             } catch (Exception ex) {
                 throw;
             }
-            return vendor;//system has updated the Id that is now assigned so pass back user   
+            return product;//system has updated the Id that is now assigned so pass back user   
         }
-        public bool Update(int id, Vendor vendor) {
+
+        public bool Update(int id, Product product) {
             //do so only updating the one you want
-            if (vendor == null) throw new Exception("vendor cannot be null");
-            if (id != vendor.Id) throw new Exception("Id and User.Id must match");
-   
-            context.Entry(vendor).State = EntityState.Modified;//tells state that it is an update not add
-       
+            if (product == null) throw new Exception("product cannot be null");
+            if (id != product.Id) throw new Exception("Id and product.Id must match");
+
+            context.Entry(product).State = EntityState.Modified;//tells state that it is an update not add
+
             try {
                 context.SaveChanges();//trap exception for a dup vendor by doing a try catch
             } catch (DbUpdateException ex) {
                 //if get it what will we do
-                throw new Exception("Vendor must be unique", ex);
+                throw new Exception("product must be unique", ex);
                 //give developer the origianl exception thrown by doing ex above
             } catch (Exception ex) {
                 throw;
@@ -57,17 +57,16 @@ namespace PRSPretestLibrary.Controller {
         }
         public bool Delete(int id) {
             if (id <= 0) throw new Exception("Id must be greater than zero");
-            var vendor = context.Vendors.Find(id);
-            return Delete(vendor);
+            var product = context.Products.Find(id);
+            return Delete(product);
         }
         //overload delete
-        public bool Delete(Vendor vendor) {
-            context.Vendors.Remove(vendor);
+        public bool Delete(Product product) {
+            context.Products.Remove(product);
             context.SaveChanges();
             return true;
         }
 
-
-        public VendorController() { }
+        public ProductController() { }
     }
 }

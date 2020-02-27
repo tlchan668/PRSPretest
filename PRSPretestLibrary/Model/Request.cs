@@ -16,7 +16,7 @@ namespace PRSPretestLibrary.Model {
         public string Status { get; set; }
         [DefaultValue (0)]
         public decimal Total { get; set; }
-        public bool UserId { get; set; }
+        public int UserId { get; set; }
       
         public virtual User User { get; set; }
 
