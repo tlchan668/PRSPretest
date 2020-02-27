@@ -14,21 +14,32 @@ namespace PRSPretestLibrary {
             foreach (var u in users) {
                 Console.WriteLine(u);//overidden the to string function in both class
             }
-            return (users);
+            return users;
         }
 
         public User GetUserByPK(int userid) {
             var user = context.Users.Find(userid);
-            if (user == null) throw new Exception("Order not found");
+            if (user == null) throw new Exception("User not found");
             Console.WriteLine(user);
-            return (user);
+            return user;
         }
         
-          public bool AddUser(User user){
+        public bool AddUser(User user){
+            //null check for username, password,firstname,lastname
+            if ((user.Username ==null) || (user.Password == null) || (user.Firstname== null)  || (user.Lastname == null)) {
+                return false;
+            }
+            //check to make sure no other username
+            List<User> checkUsers = GetAllUsers();
+            foreach(var u in checkUsers) {
+                if(u.Username == user.Username) {
+                    //already used
+                    return false;
+                }
+            }
             context.Users.Add(user);//modifies collection but not the db
             var rowsAffected = context.SaveChanges();//alters db
             if (rowsAffected == 0) {
-                return false;
                 throw new Exception("Add User failed!");
             }
             return true;
@@ -45,12 +56,16 @@ namespace PRSPretestLibrary {
             if (rowsAffected != 1) throw new Exception("Delete failed!");
 
         }
-        public bool UpdateCustomer(int userPK) {
-            //var userPK = 2;
+        public bool UpdateUser(User updateduser) {
+            
             //read for data see if there before change
-            var user = context.Users.Find(userPK);
+            var user = context.Users.Find(updateduser.Id);
             if (user == null) throw new Exception("Cust not found");
-            user.Firstname = "Target";
+            user.Password = updateduser.Password;
+            user.Firstname = updateduser.Firstname;
+            user.Lastname = updateduser.Lastname;
+            user.Phone = updateduser.Phone;
+            user.Email = updateduser.Email;
             var rowsAffected = context.SaveChanges();
             if (rowsAffected != 1) {
                 return false;
