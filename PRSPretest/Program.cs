@@ -8,7 +8,31 @@ using PRSPretestLibrary.Controller;
 namespace PRSPretest {
     class Program {
         static void Main(string[] args) {
+            //login
+            var UserCtrl = new UserController();
+            var RequestCtrl = new RequestController();
+           /* 
+            var user = UserCtrl.Login("user1", "password");
+            Console.WriteLine(  user);
+            Request r4 = RequestCtrl.GetRequestbyPK(4);
+            var success = RequestCtrl.SetToReview(r4);
+            Request r6 = RequestCtrl.GetRequestbyPK(6);
+            success = RequestCtrl.SetToReview(r6);
+            success = RequestCtrl.SetToApproved(r6);
+            Request r7 = RequestCtrl.GetRequestbyPK(7);
+            success = RequestCtrl.SetToRejected(r7);
+            */
+            //List<Request> requests = RequestCtrl.GetRequeststoReviewNotOwn(4).ToList();
+            //make new request
 
+        
+
+
+
+
+            //bool success = RequestCtrl.SetToApproved()
+
+            /*
             var rlctrl = new RequestLinesController();
             List<RequestLine> rl = rlctrl.GetAllRequestslinees();
             var rl1 = rlctrl.GetRequestbyPK(3);
@@ -22,7 +46,7 @@ namespace PRSPretest {
             rl = rlctrl.GetAllRequestslinees();
             s = rlctrl.Delete(3);
             rl= rlctrl.GetAllRequestslinees();
-
+            */
             //var RequestCtrl = new RequestController();
             //List<Request> Requests = RequestCtrl.GetAllRequests();
             //var req1 = RequestCtrl.GetRequestbyPK(4);

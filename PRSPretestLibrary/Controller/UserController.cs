@@ -10,6 +10,24 @@ namespace PRSPretestLibrary {
 
         private AppDbContext context = new AppDbContext(); //create an instance of context or could be put in constructor
 
+        public IEnumerable<User> LoginMyLogin(string username, string password) {//partial
+            //get all the tables
+            List<User> dbUsers = GetAllUsers();
+            foreach (var u in dbUsers) {
+                return context.Users.Where(x => x.Username==username).ToList();//not best because returns collection
+            }return null;
+        }
+        public User Login(string username, string password) {//gregs  way method syntax this can do sum
+            return context.Users.SingleOrDefault(u => u.Password==password&&u.Username==username);//expect to find one..if doesn't then returns null but if find two then will throw exception
+            //greg would check and send back a message that username or password can not be null
+            //declarative syntax this can not do sum, use this for joining tables
+            //var user = from u in context.Users
+            //           where u.Username == username && u.Password == password
+            //           select u;
+            //return user.FirstOrDefault();//returns a collection is just return user;
+
+        }
+
         public List<User> GetAllUsers() {
             var users = context.Users.ToList();//this uses linq to read data
             foreach (var u in users) {
